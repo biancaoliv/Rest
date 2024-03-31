@@ -4,15 +4,20 @@ const router = express.Router();
 //  RETORNA TODOS OS PRODUTOS
 router.get('/', (req, res, next) => {
     res.status(200).send({
-        mensagem: 'Usando o GET dentro da rota de pedidos'
+        mensagem: 'Retorna os pedidos'
     });
 });
 
 //  INSERE UM PEDIDO
 
 router.post('/', (req, res, next) => {
+    const pedido = {
+        id_produto: req.body.id_produto,
+        quantidade: req.body.quantidade
+    }
     res.status(201).send({
-        mensagem: 'Usando o POST dento da rota de pedidos'
+        mensagem: 'O pedido foi criado',
+        pedidoCriado: pedido
     });
 });
 
