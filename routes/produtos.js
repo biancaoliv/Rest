@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const mysql = require("../mysql").pool;
+const multer = require("multer");
+const upload = multer({ dest: 'uploads/' });
 
 //  RETORNA TODOS OS PRODUTOS
 router.get("/", (req, res, next) => {
@@ -33,7 +35,8 @@ router.get("/", (req, res, next) => {
 });
 
 //  INSERE UM PRODUTO
-router.post("/", (req, res, next) => {
+router.post("/", upload.single('produto_imagem'), (req, res, next) => {
+  console.log(req.file);
   mysql.getConnection((error, conn) => {
     if (error) {
       return res.status(500).send({ error: error });
