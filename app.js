@@ -7,6 +7,7 @@ const rotaProdutos = require('./routes/produtos');
 const rotaPedidos = require('./routes/pedidos');
 
 app.use(morgan('dev'));
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false })); //significa que vai aceitar apenas dados simples
 app.use(bodyParser.json()); //aceita somente json de entrada no body
 
