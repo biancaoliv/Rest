@@ -43,7 +43,7 @@ router.get('/:id_produto', produtosController.getUmProduto);
 
 router.patch('/', login.obrigatorio, produtosController.updateProduto);
 
-//  EXCLUI UM PRODUTO
+
 router.delete('/', login.obrigatorio, produtosController.deleteProduto);
 
 router.post(
