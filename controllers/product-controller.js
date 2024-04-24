@@ -46,7 +46,7 @@ exports.postProduct = async (req, res, next) => {
         const result = await mysql.execute(query, [
             req.body.name,
             req.body.price,
-            req.file.path,
+            req.file.productImage,
             req.body.categoryId,
         ]);
 
@@ -56,7 +56,7 @@ exports.postProduct = async (req, res, next) => {
                 productId: result.insertId,
                 name: req.body.name,
                 price: req.body.price,
-                productImage: req.file.path,
+                productImage: req.file.productImage,
                 categoryId: req.body.categoryId,
                 request: {
                     type: 'GET',

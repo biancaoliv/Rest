@@ -4,31 +4,22 @@ const jwt = require('jsonwebtoken');
 
 exports.createUser = async (req, res, next) => {
     try {
-        // var query = `SELECT * FROM users WHERE email = ?`;
-        // var result = await mysql.execute(query, [req.body.email]);
+        const { email, password } = req.body;
 
-        // if (result.length > 0) {
-        //     return res.status(409).send({ message: 'Usuário já cadastrado' })
-        // }
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // const hash = await bcrypt.hashSync(req.body.password, 10);
-
-        const users = req.body.users.map(user => [
-            user.email,
-            bcrypt.hashSync(user.password, 10)
-        ])
-
-        query = 'INSERT INTO users (email, password) VALUES ?';
-        const results = await mysql.execute(query, [ users ]);
+        const query = 'INSERT INTO users (email, password) VALUES (?, ?)';
+        await mysql.execute(query, [email, hashedPassword]);
 
         const response = {
             message: 'Usuário criado com sucesso',
-            createdUsers: req.body.users.map(user => { return { email: user.email } })
-        }
+            createdUser: { email: email }
+        };
         return res.status(201).send(response);
 
     } catch (error) {
-        return res.status(500).send({ error: error });
+        console.error('Erro ao criar usuário:', error.message);
+        return res.status(500).send({ error: 'Erro interno ao criar usuário' });
     }
 };
 
