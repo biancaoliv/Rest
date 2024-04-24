@@ -1,1 +1,1 @@
-ALTER TABLE products CHANGE nome name INT
+SELECT * FROM products;
